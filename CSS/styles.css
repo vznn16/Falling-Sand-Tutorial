@@ -1,12 +1,10 @@
 #canvas {
     border: 1px solid black;
-    width: 200;
-    height: 100;
 }
 .center-canvas {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    min-width: 100vh;
+    
 }
