@@ -1,10 +1,17 @@
 #canvas {
     border: 1px solid black;
 }
-.center-canvas {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    
+
+
+.outer {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   min-height: 100vh;
+}
+
+.buttons {
+    display:flex;
+    margin-left: auto;
 }
