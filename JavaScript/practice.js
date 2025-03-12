@@ -3,7 +3,6 @@ class Particle {
     this.color = color;
     }
 }
-
 class Sand extends Particle {
     constructor(color) {
         super("orange");
@@ -185,16 +184,16 @@ function update() {
                     let moveLeft = col > 0 && !grid[col - 1][row]; 
                     let moveRight = col < numColumns - 1 && !grid[col + 1][row]; 
                     
-                    let direction = getRandomInt(0, 3); 
-                    if (!moveLeft) direction = 3;
+                    let direction = getRandomInt(0, 2); 
+                    if (!moveLeft) direction = 2;
                     if (!moveRight) direction = 0;
 
-                    if (direction <= 2 && moveLeft) { 
+                    if (direction <= 1 && moveLeft) { 
                         grid[col - 1][row] = grid[col][row]; 
                         grid[col - 1][row].col = col - 1;
                         grid[col][row] = null;
                     } 
-                    else if (direction >= 3 && moveRight) { 
+                    else if (direction >= 2 && moveRight) { 
                         grid[col + 1][row] = grid[col][row]; 
                         grid[col + 1][row].col = col + 1;
                         grid[col][row] = null;
@@ -241,5 +240,6 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
 }
+
 setInterval(reDraw, 1);
 

@@ -10,22 +10,22 @@
 <body>
     Welcome To Falling Sand
     <div class="outer">
-        <div class="buttons">
-        <button class="btn" id="clear-button">Clear Screen</button>
-        <input type="range" min="1" max="100" value="50" class="slider" id="speedRange">
-        <p>Speed: <span id="speed"></span></p>
-        <input type="range" min="1" max="5" value="2" class="slider" id="brushRange">
-        <p>Brush Size: <span id="brushSize"></span></p>
-        <label for="particle">Choose a Type:</label>
-        <select name="particle" id="particle">
-          <option value="Sand">Sand</option>
-          <option value="Water">Water</option>
-          <option value="Stone">Stone</option>
-          <option value="Dirt">Dirt</option>
-        </select>
-        </div>
         <div class="center-canvas">
-            <canvas id="canvas" width="1000" height="400"></canvas>
+            <canvas id="canvas" width="1500" height="600"></canvas>
+        </div>
+        <div class="buttons">
+            <button class="button" id="clear-button">Clear Screen</button>
+            <p>Speed: <span id="speed"></span></p>
+            <input type="range" min="1" max="100" value="50" class="slider" id="speedRange">
+            <p>Brush Size: <span id="brushSize"></span></p>
+            <input type="range" min="1" max="5" value="2" class="slider" id="brushRange">
+            <label for="particle">Choose a Type:</label>
+            <select name="particle" id="particle">
+            <option value="Sand">Sand</option>
+            <option value="Water">Water</option>
+            <option value="Stone">Stone</option>
+            <option value="Dirt">Dirt</option>
+            </select>
         </div>
     </div>
     <script src="JavaScript/practice.js"></script>
