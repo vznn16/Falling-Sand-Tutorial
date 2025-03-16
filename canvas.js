@@ -158,6 +158,7 @@ export function clearGrid() {
  */
 export function checkBounds(row, col) {
     // TODO make sure row and col are within the grid
+    return true;
 }
 
 /**
