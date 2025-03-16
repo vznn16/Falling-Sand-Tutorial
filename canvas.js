@@ -176,7 +176,7 @@ export function checkBounds(row, col) {
  */
 export function moveParticle(row, col, newRow, newCol, swap) {
     // TODO move a particle from (row, col) to (newRow, newCol)
-    return false;
+    return true;
 }
 
 /**
