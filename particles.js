@@ -60,5 +60,8 @@ export class Sand extends Particle {
  * @returns 
  */
 export function checkParticleType(value) {
+    if (value == "Sand") {
+        return new Sand();
+    } 
     // TODO create new particles
 }
