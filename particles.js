@@ -1,21 +1,42 @@
 import { checkBounds, moveParticle, getParticle, setParticle } from "./canvas.js";
 import { getRandomInt } from "./util.js";
 
+/**
+ * Base particle class
+ */
 class Particle {
     constructor() {
         this.color = "";
         this.type = "";
     }
 
+    /**
+     * Returns true if the particle should swap with other when trying
+     * to move onto the same grid location as {@link other}.
+     * 
+     * EX: Let sand sink below water
+     * 
+     * @param {Particle} other 
+     * @returns {boolean} Should the particle swap
+     */
     swap(other) {
         return false;
     }
 
-    update() {
+    /**
+     * Update the particle at location (row, col)
+     * 
+     * @param {number} row 
+     * @param {number} col 
+     */
+    update(row, col) {
 
     }
 }
 
+/**
+ * Sand particle
+ */
 export class Sand extends Particle {
     constructor() {
         super();
@@ -24,11 +45,14 @@ export class Sand extends Particle {
     }
 
     swap(other) {
+        // Make sand fall below water
         return other.type == "water";
     }
 
     update(row, col) {
+        // Fall due to gravity
         let newRow = row + 1;
+        // Make sure sand does not fall off screen
         if (!checkBounds(newRow, col)) {
             return;
         }
@@ -44,6 +68,9 @@ export class Sand extends Particle {
     }
 }
 
+/**
+ * Water particle
+ */
 export class Water extends Particle {
     constructor() {
         super();
@@ -52,8 +79,9 @@ export class Water extends Particle {
     }
 
     update(row, col) {
-        // Make dirt below grass
+        // Make water turn dirt into grass when it touches it
         if (getParticle(row+1, col)?.type == "dirt") {
+            // Remove water and change dirt to grass
             setParticle(row+1, col, new Grass());
             setParticle(row, col, null);
             return;
@@ -64,7 +92,7 @@ export class Water extends Particle {
             moveParticle(row, col, row+1, col, super.swap);
         } 
         
-        // If nothing below, move left or right
+        // Move left or right
         if (getRandomInt(0, 1) && !getParticle(row, col+1)) {
             moveParticle(row, col, row, col+1, super.swap);
         }
@@ -74,6 +102,9 @@ export class Water extends Particle {
     }
 }
 
+/**
+ * Stone particle
+ */
 export class Stone extends Particle {
     constructor() {
         super();
@@ -82,6 +113,10 @@ export class Stone extends Particle {
     }
 }
 
+/**
+ * Dirt particle
+ * Inherits from Sand so it acts exactly like it
+ */
 export class Dirt extends Sand {
     constructor() {
         super();
@@ -90,6 +125,10 @@ export class Dirt extends Sand {
     }
 }
 
+/**
+ * Grass particle
+ * Inherits from Sand so it acts exactly like it
+ */
 export class Grass extends Sand {
     constructor() {
         super();
@@ -98,6 +137,12 @@ export class Grass extends Sand {
     }
 }
 
+/**
+ * Create particle based on dropdown name
+ * 
+ * @param {string} value 
+ * @returns 
+ */
 export function checkParticleType(value) {
     if (value == "Sand") {
         return new Sand();
