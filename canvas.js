@@ -48,8 +48,8 @@ for(let i = 0; i < grid.length; i++){
  * @returns {{row: number, col: number}} coordinates
  */
 export function getRandomLocation() {
-    const row = getRandomInt(0, grid.length);
-    const col = getRandomInt(0, grid[0].length);
+    const row = getRandomInt(0, grid.length-1);
+    const col = getRandomInt(0, grid[0].length-1);
     return {row, col};
 }
 
