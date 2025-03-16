@@ -43,57 +43,6 @@ for(let i = 0; i < grid.length; i++){
 }
 
 /**
- * Make sure the (row, col) index exists within {@link grid}
- * 
- * @param {number} row 
- * @param {number} col 
- * @returns {boolean}
- */
-export function checkBounds(row, col) {
-    return row < grid.length && row >= 0 && col < grid[0].length && col >= 0;
-}
-
-/**
- * Tries to move a particle from (row, col) to (newRow, newCol)
- * Checks to make sure both coordinates are valid and that their
- * is no other particle in the way or the moving particle can
- * swap with it
- * 
- * @param {number} row 
- * @param {number} col 
- * @param {number} newRow 
- * @param {number} newCol 
- * @param {(Particle) => boolean} swap 
- * @returns {boolean} If the particle was moved or not
- */
-export function moveParticle(row, col, newRow, newCol, swap) {
-    // Check to make sure the coordinates are valid
-    if (!checkBounds(row, col) || !checkBounds(newRow, newCol)) {
-        return false;
-    }
-
-    // Checks if there is already a particle in the new coordinates (null == false)
-    if (getParticle(newRow, newCol)) {
-        // If there is a particle but we can swap then flip the particles
-        if (swap(getParticle(newRow, newCol))) {
-            const temp = grid[newRow][newCol];
-            grid[newRow][newCol] = grid[row][col];
-            grid[row][col] = temp;
-        }
-        // If we can't swap then don't move
-        else {
-            return false;
-        }
-    }
-    else {
-        // If there is no particle in the new coordinates move the particle there
-        grid[newRow][newCol] = grid[row][col];
-        grid[row][col] = null;
-    }
-    return true;
-}
-
-/**
  * Gets a random location within the grid
  * 
  * @returns {{row: number, col: number}} coordinates
@@ -157,25 +106,9 @@ export function createParticle(mousePosition) {
     const value = particleType.value;
     const brushSize = parseInt(brushSlider.value);
 
-    const brushSpread = (row, col, size) => {
-        if (!checkBounds(row, col)) {
-            return;
-        }
-        // Create a new particle and assign it to (row, col)
-        grid[row][col] = checkParticleType(value);
-
-        // Recursion to make brush a circle (size is radius)
-        if (size > 1) {
-            size -= 1;
-            brushSpread(row+1, col, size);
-            brushSpread(row-1, col, size);
-            brushSpread(row, col+1, size);
-            brushSpread(row, col-1, size);
-        }
-    }
+    grid[row][col] = checkParticleType(value);
     
-    // Recursive function that spreads out in a circle
-    brushSpread(row, col, brushSize);
+    // TODO add more particles based on brush size
 }
 
 let isDragging = false;
@@ -217,6 +150,35 @@ export function clearGrid() {
 }
 
 /**
+ * Make sure the (row, col) index exists within {@link grid}
+ * 
+ * @param {number} row 
+ * @param {number} col 
+ * @returns {boolean}
+ */
+export function checkBounds(row, col) {
+    // TODO make sure row and col are within the grid
+}
+
+/**
+ * Tries to move a particle from (row, col) to (newRow, newCol)
+ * Checks to make sure both coordinates are valid and that their
+ * is no other particle in the way or the moving particle can
+ * swap with it
+ * 
+ * @param {number} row 
+ * @param {number} col 
+ * @param {number} newRow 
+ * @param {number} newCol 
+ * @param {(Particle) => boolean} swap 
+ * @returns {boolean} If the particle was moved or not
+ */
+export function moveParticle(row, col, newRow, newCol, swap) {
+    // TODO move a particle from (row, col) to (newRow, newCol)
+    return false;
+}
+
+/**
  * Draws all particles
  */
 export function redraw() {
@@ -226,15 +188,7 @@ export function redraw() {
     // Loop through all elements in the grid
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[0].length; col++) {
-            const particle = grid[row][col];
-
-            // Check if there is a particle at (row, col). (null == false)
-            if (particle) {
-                // Get particle color
-                ctx.fillStyle = particle.color;
-                // Draw particle (multiple by eachSize to scale it from grid coordinates to pixels)
-                ctx.fillRect(col * eachSize, row * eachSize, eachSize, eachSize);
-            }
+            // TODO draw particles to screen
         }
     }
 }
