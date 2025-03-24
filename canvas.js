@@ -105,10 +105,26 @@ export function createParticle(mousePosition) {
     const particleType = document.getElementById("particle");
     const value = particleType.value;
     const brushSize = parseInt(brushSlider.value);
-
-    grid[row][col] = checkParticleType(value);
     
-    // TODO add more particles based on brush size
+    const brushSpread = (row, col, size) => {
+        if (!checkBounds(row, col)) {
+            return;
+        }
+        // Create a new particle and assign it to (row, col)
+        grid[row][col] = checkParticleType(value);
+
+        // Recursion to make brush a circle (size is radius)
+        if (size > 1) {
+            size -= 1;
+            brushSpread(row+1, col, size);
+            brushSpread(row-1, col, size);
+            brushSpread(row, col+1, size);
+            brushSpread(row, col-1, size);
+        }
+    }
+
+    // Recursive function that spreads out in a circle
+    brushSpread(row, col, brushSize);
 }
 
 let isDragging = false;
