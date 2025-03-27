@@ -208,10 +208,12 @@ export function redraw() {
             // TODO draw particles to screen
             const particle = grid[row][col];
 
-            // Get particle color
-            ctx.fillStyle = particle.color;
-            // Draw particle (multiple by eachSize to scale it from grid coordinates to pixels)
-            ctx.fillRect(col * eachSize, row * eachSize, eachSize, eachSize);
+            // Check if there is a particle at (row, col). (null == false)
+            if (particle) {
+                // Get particle color
+                ctx.fillStyle = particle.color;
+                // Draw particle (multiple by eachSize to scale it from grid coordinates to pixels)
+                ctx.fillRect(col * eachSize, row * eachSize, eachSize, eachSize);
         }
     }
 }
